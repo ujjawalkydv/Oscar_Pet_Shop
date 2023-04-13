@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/jpg" href="images/shopPoster.png" />
+    
+    <link rel="stylesheet" href="style.css">
+    <title>Contact Us</title>
+    
+
+    
+</head>
+
+<body>
+   
+    <button > <a href="index.html"> Back to Home</a> </button>
+    <div class="container register">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="form-new" id="home" role="tabpanel"
+                    aria-labelledby="home-tab">
+                    <h3 class="register-heading">Submit your enquiry to Oscar Dog Care</h3>
+                    <div class="row register-form">
+                        <div class="col-md-12">
+                            <form method="post" autocomplete="off" name="enquiry-sheet">
+                                <div>
+                                    <input type="text" name="Name" class="form-control" placeholder="Your Name *"
+                                        value="" required="" />
+                                </div>
+                                <div>
+                                    <input type="text" name="Email" class="form-control" placeholder="Your Email *"
+                                        value="" required="" />
+                                </div>
+                                <div>
+                                    <input type="number" name="Phone" class="form-control"
+                                        placeholder="Your Contact Number *" value="" required="" />
+                                </div>
+                                <div>
+                                    <textarea id="inquiry" class="form-control" placeholder="Your Enquiry *"
+                                        name="Enquiry" required=""></textarea>
+
+                                </div>
+                                <div>
+                                    <input type="submit" name="submit" class="btnSubmit btn-block" value="Submit" />
+                                    <input type="reset" name="reset" class="btnReset btn-block" value="Reset" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    // To Reset the form
+    const resetButton = document.querySelector('input[name="reset"]');
+        const inputFields = document.querySelectorAll('input[type="text"], input[type="number"], textarea');
+
+        resetButton.addEventListener('click', function () {
+            inputFields.forEach(function (field) {
+                field.value = '';
+            });
+});
+
+// To Save the form data in google sheet
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwEAq65yGbz_VykLYUT0DHCZMcYsyZKA8f2pqy0-pkmSY9_yGPcaQvQzXC5KcWf_k64/exec'
+    const form = document.forms['enquiry-sheet']
+
+    form.addEventListener('submit', e => {
+        e.preventDefault()
+        fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+            .then(response => alert("Thanks for Contacting us..! We Will Contact You Soon..."))
+            
+            .catch(error => console.error('Error!', error.message));
+            inputFields.forEach(function (field) {
+                field.value = '';
+            });
+            
+    })
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</html>
